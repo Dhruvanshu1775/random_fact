@@ -1,0 +1,83 @@
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<h1>Hey there</h1>
+
+
+
+<input type="text" name="question" id="question" placeholder="Enter questiob"><br>
+<input type="text" name="option1" id="option1" placeholder="option1"><br>
+<input type="text" name="option2" id="option2" placeholder="option1"><br>
+<input type="text" name="option3" id="option3" placeholder="option1"><br>
+<button id="add_question">Add Question</button>
+<br>
+<hr>
+
+<h1>Total Question</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Question</th>
+      <th scope="col" >Option1</th>
+      <th scope="col" >Option2</th>
+      <th scope="col" >Option3</th>
+      <th scope="col" >Delete</th>
+    </tr>
+  </thead>
+  <tbody id="append_table">
+  
+  </tbody>
+</table>
+
+
+<script type="text/javascript">
+	var quesionList = []
+	var id = 0
+
+
+	$("#add_question").on("click",function(){
+		var question =  $("#question").val()
+		var option1 = $("#option1").val()
+		var option2 = $("#option2").val()
+		var option3 = $("#option3").val()
+		QuestionBank(question, option1, option2, option3, this.id)
+	})
+
+	function QuestionBank(question, option1, option2, option3, id){
+		this.quesionList.push({ 'id':id  ,'question':question, 'option1':option1, 'option2':option2, 'option3':option3})
+		CreateTd(this.id)
+	}
+
+	function CreateTd(id){
+		var html_data = `<tr id="main_table${id}">
+      					<th scope="row" id="srno${id}">${id}</th>
+      						<td id="question_show${id}"></td>
+					     	<td id="option1_show${id}"></td>
+					      	<td id="option2_show${id}"></td>
+					      	<td id="option3_show${id}"></td>
+					      	<td id="option3_show'+id+'"><button onclick="delete_obj(${id})" data-target="'+id+'">Delete</button></td>
+					    </tr>`
+
+		$("#append_table").append(html_data)			    
+
+	
+		document.getElementById("question_show"+id).innerHTML += this.quesionList[id].question
+		document.getElementById("option1_show"+id).innerHTML += this.quesionList[id].option1 
+		document.getElementById("option2_show"+id).innerHTML += this.quesionList[id].option2 
+		document.getElementById("option3_show"+id).innerHTML += this.quesionList[id].option3
+		document.getElementById("option3_show"+id).innerHTML += this.quesionList[id].option3 
+		this.id = this.id + 1
+	}
+
+	function delete_obj(id){
+		$("#main_table"+id+"").remove();
+	}
+
+	
+
+	
+
+</script>
